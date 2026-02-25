@@ -546,7 +546,7 @@ export default function MessagesPage() {
   const [selectedConversationId, setSelectedConversationId] = useState<number | null>(1)
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="bg-white">
       <div className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <h1 className="mb-2 text-4xl font-bold text-slate-900">Messages</h1>
@@ -572,8 +572,8 @@ export default function MessagesPage() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="-mt-24 grid h-screen grid-cols-1 gap-6 pt-24 lg:grid-cols-[300px_1fr_320px]">
-          <div className="hidden lg:block">
+        <div className="-mt-24 grid grid-cols-1 gap-6 pt-24 lg:grid-cols-[300px_1fr_320px]">
+          <div className="hidden lg:block lg:h-[70vh] lg:min-h-[540px]">
             <ConversationList
               conversations={mockConversations}
               selectedId={selectedConversationId}
@@ -582,7 +582,7 @@ export default function MessagesPage() {
             />
           </div>
 
-          <div>
+          <div className="lg:h-[70vh] lg:min-h-[540px]">
             <ChatWindow conversationId={selectedConversationId} />
           </div>
 
