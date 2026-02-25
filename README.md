@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Boarding Student Platform (Frontend)
 
-## Getting Started
+Student-facing Next.js application for onboarding, profile management, company matching, journey tracking, appointments, messaging, and resources.
 
-First, run the development server:
+## Tech Stack
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS + shadcn/ui
+- TanStack Query (server state)
+- Zustand (client state)
+- Axios (API client)
+- React Hook Form + Zod (forms/validation)
+- Socket.io client (real-time messaging)
+- Recharts (match visualizations)
+
+## Environment Variables
+
+Create `.env.local` using `.env.example`:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+NEXT_PUBLIC_SOCKET_URL=http://localhost:8000
+NEXT_PUBLIC_APP_NAME=Boarding Student Platform
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_ENABLE_REALTIME=true
+NEXT_PUBLIC_USE_MOCK_API=false
+NEXT_PUBLIC_MAX_CV_SIZE=5242880
+NEXT_PUBLIC_ALLOWED_CV_TYPES=.pdf,.doc,.docx
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To run without backend API docs/services, switch to mock auth in your `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+NEXT_PUBLIC_USE_MOCK_API=true
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Mock login credentials:
 
-## Learn More
+- Email: `demo@student.com`
+- Password: `Demo@1234`
 
-To learn more about Next.js, take a look at the following resources:
+Mock mode currently covers:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Authentication (`login`)
+- Profile (`getProfile`)
+- Matching (`getMatches`)
+- Journey (`getJourneyStatus`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Run Locally
 
-## Deploy on Vercel
+```bash
+npm install
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open `http://localhost:3000`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Build for Production
+
+```bash
+npm run lint
+npm run build
+```
+
+## Architecture Notes
+
+- Frontend only: consume and present backend results
+- Pattern: Component → Hook → API function → Axios instance
+- Protected routes use middleware/proxy style cookie check (`auth_token`)
+- API endpoints and routes are centralized in `src/constants`
+
+## Additional Docs
+
+- API integration guide: `docs/API_INTEGRATION.md`
