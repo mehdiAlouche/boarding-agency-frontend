@@ -25,3 +25,31 @@ export const mockLogin = async (email: string, password: string): Promise<AuthRe
     },
   };
 };
+
+export const mockRegister = async (
+  email: string,
+  firstName: string,
+  lastName: string,
+): Promise<AuthResponse> => {
+  await sleep(MOCK_DELAY_MS);
+
+  return {
+    token: 'mock_access_token_456',
+    refreshToken: 'mock_refresh_token_456',
+    user: {
+      id: 'u_demo_002',
+      email,
+      firstName,
+      lastName,
+      profileComplete: false,
+    },
+  };
+};
+
+export const mockRefreshToken = async (): Promise<{ token: string }> => {
+  await sleep(300);
+
+  return {
+    token: `mock_access_token_${Date.now()}`,
+  };
+};
